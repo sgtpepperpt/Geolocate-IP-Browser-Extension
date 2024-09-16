@@ -61,9 +61,11 @@ function checkForLocationChange(geoLocation, ipv6) {
 
 function fetchGeoLocation() {
     var badgeIndicator = lp.isSet(KEY_SETTINGS_COUNTRY_BADGE) ? lp.get(KEY_SETTINGS_COUNTRY_BADGE) : 'auto';
-
+    var providerUrl = lp.isSet(KEY_SETTINGS_PROVIDER_URL) ? lp.get(KEY_SETTINGS_PROVIDER_URL) : API_URL;
+    var providerKey = lp.isSet(KEY_SETTINGS_PROVIDER_KEY) ? lp.get(KEY_SETTINGS_PROVIDER_KEY) : null;
 
     var geoLocate = new GeoLocation();
+    geoLocate.url = providerUrl + '/api/ip' + (providerKey? '?k=' + providerKey : '')
     geoLocate.fetch({
         success: function () {
             ipv4Error = false;
